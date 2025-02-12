@@ -1,0 +1,28 @@
+ AREA RESET, DATA, READONLY
+    EXPORT __Vectors
+__Vectors
+    DCD 0x10001000
+    DCD Reset_Handler
+    ALIGN
+    AREA mycode, CODE, READONLY
+    ENTRY
+    EXPORT Reset_Handler
+Reset_Handler
+    LDR R0, =SRC
+	LDR R1, =DST
+	MOV R2, #4
+LOOP LDRB R3, [R0], #1
+	 CMP R3, #0X39
+	 SUBLE R3, #0X30
+	 SUBGE R3, #0X37
+	 LSL R4, R4, #4
+	 ORR R4, R3
+	 SUBS R2, #1
+	 BNE LOOP
+	 STR R4, [R1]
+STOP
+    B STOP
+SRC DCB "3B9F", 0x00
+    AREA mydata, DATA, READWRITE
+DST DCD 0x00    ; Reserve 4 bytes for ASCII characters
+    END
