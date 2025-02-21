@@ -1,0 +1,38 @@
+	AREA RESET, DATA, READONLY
+    EXPORT __Vectors
+__Vectors
+    DCD 0x10001000           ; Initial stack pointer
+    DCD Reset_Handler        ; Reset handler
+    ALIGN
+
+    AREA mycode, CODE, READONLY
+    ENTRY
+    EXPORT Reset_Handler
+
+Reset_Handler
+    LDR R0, =ARRAY
+	MOV R1, #10
+	LDR R2, =TARGET
+	LDR R2, [R2]
+	MOV R3, #0
+SEARCH_LOOP
+	LDR R4, [R0], #4
+	CMP R4, R2
+	BEQ FOUND
+	ADD R3, #1
+	SUBS R1, #1
+	BNE SEARCH_LOOP
+NOT_FOUND
+	LDR R9, =RESULT
+	MOV R3, #0XFFFFFFFF
+	STR R3, [R9]
+	B STOP
+FOUND
+	LDR R9, =RESULT
+	STR R3, [R9]	
+STOP B STOP       
+ARRAY DCD 0X10, 0X05, 0X33, 0X24, 0X56, 0X77, 0X21, 0X04, 0X87, 0X01
+TARGET DCD 0X77
+    AREA mydata, DATA, READWRITE
+RESULT DCD 0
+	END
