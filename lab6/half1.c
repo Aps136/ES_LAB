@@ -1,3 +1,4 @@
+//switch pressed->jhon counter else ->ring counter
 #include<LPC17xx.h>
 #include <stdio.h>
 unsigned int j,i;
