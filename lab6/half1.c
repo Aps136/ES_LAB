@@ -28,9 +28,9 @@ int main(void)
 	else
 	{
 		
-		LED=0X00000080;
-		//LED<<=4;
-		for(i=0; i<9; i++){		
+		LED=0X0000010;
+		LED<<=4;
+		for(i=0; i<4; i++){		
 			LPC_GPIO0->FIOSET=LED;
 			//for(j=0; j<1000000; j++);
 			
