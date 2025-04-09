@@ -1,4 +1,25 @@
-
+#include <LPC17xx.h>
+#include <stdio.h>
+#define FIRST_SEG (0 << 23)
+#define SECOND_SEG (1 << 23)
+#define THIRD_SEG (2 << 23)
+#define FOURTH_SEG (3 << 23)
+unsigned int dig_count=0;//current dig count
+unsigned int digit_value[4]={0,0,0,0};//4 digit counter values
+unsigned int select_segment[4] ={FIRST_SEG, SECOND_SEG, THIRD_SEG, FOURTH_SEG};
+unsigned char seven_seg[10] ={0x3F, 0X06, 0X5B, 0X4F, 0X66, 0X6D, 0X7D, 0X07, 0X7F, 0X6F};
+unsigned long int i=0;
+unsigned int count=0, flag=0;
+#define N 2000
+void display(void);
+void delay(void);
+int main(void){
+	SystemInit();
+	SystemCoreClockUpdate();
+	LPC_PINCON->PINSEL0=0;
+	LPC_PINCON->PINSEL3=0;
+	LPC_GPIO0->FIODIR=0X00000FF0;
+	LPC_GPIO1->FIODIR = 0X07800000;
 	while(1){
 		delay();
 		dig_count+=1;
@@ -7,6 +28,7 @@
 			
 		}
 		display();
+	
 		
 	}
 }
@@ -18,7 +40,7 @@ void display(void){
 		
 }
 void delay(void){
-	for(i=0;i<500;i++){
+	for(i=0;i<5;i++){
 		if(count==N){
 			flag=0xFF;
 			count=0;
