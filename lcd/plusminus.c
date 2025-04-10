@@ -12,6 +12,7 @@ unsigned char scan_code[4][4] = {
   {8,9,10,11},
   {12,13,14,15}
 };
+unsigned int r, r1;
 
 unsigned char row, col, key;
 unsigned int temp1 = 0, temp2 = 0, i;
@@ -19,8 +20,9 @@ unsigned char flag1 = 0, flag2 = 0;
 int A = -1, B = -1, result = 0;
 char op = '+';  // current operator
 
-void delay_lcd(unsigned int r1) {
-  for (unsigned int r = 0; r < r1; r++);
+void delay_lcd(int r1) {
+  int r;
+  for (r = 0; r < r1; r++);
 }
 
 void port_write(void) {
@@ -59,6 +61,7 @@ void display_number(int num) {
 }
 
 void scan_keypad(void) {
+  char ch;
   while (1) {
     for (row = 0; row < 4; row++) {
       LPC_GPIO2->FIOCLR = 0x00003C00;
@@ -67,7 +70,7 @@ void scan_keypad(void) {
       for (col = 0; col < 4; col++) {
         if (!(LPC_GPIO1->FIOPIN & (1 << (23 + col)))) {
           key = scan_code[row][col];
-          char ch = msg[key];
+          ch = msg[key];
 
           if (ch >= '0' && ch <= '9') {
             if (A == -1) {
