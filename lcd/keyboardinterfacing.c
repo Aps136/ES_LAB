@@ -7,6 +7,7 @@
 unsigned long int i, temp1, temp2;
 unsigned char msg[] = {'0','1','2','3','4','5','6','7','8','9','A','B','C','D','E','F'};
 unsigned char row, col, key;
+unsigned int r,r1;
 unsigned char scan_code[4][4] = {
   {0,1,2,3},
   {4,5,6,7},
@@ -18,7 +19,7 @@ unsigned long int init_command[] = {0x30,0x30,0x30,0x20,0x28,0x0C,0x06,0x01,0x80
 unsigned char flag1 = 0, flag2 = 0;
 
 void delay_lcd(unsigned int r1){
-	for(unsigned int r=0;r<r1;r++);
+	for(r=0;r<r1;r++);
 }
 
 void port_write(void){
@@ -29,9 +30,9 @@ void port_write(void){
 		LPC_GPIO0->FIOSET = RS_CTRL;
 	}
 	LPC_GPIO0->FIOSET = EN_CTRL;
-	delay_lcd(25);
+	delay_lcd(25000);
 	LPC_GPIO0->FIOCLR = EN_CTRL;
-	delay_lcd(5000);
+	delay_lcd(500000);
 }
 
 void lcd_write(void){
