@@ -1,0 +1,60 @@
+The system will:
+
+Detect which player pressed their buzzer first
+Allow the moderator to judge answers using a keypad
+Update and display scores on an LCD
+Use LEDs to indicate which player is currently answering
+
+Let me develop a complete solution for this project.
+System Overview
+This quiz buzzer system implements the requirements you specified:
+
+Player Interaction:
+
+Two players can press their buzzers to respond to questions
+The system detects which player pressed first
+LEDs indicate which player is currently answering
+
+
+Moderator Control:
+
+Moderator uses keypad to judge answers (A = correct, B = wrong, C = reset)
+If first player answers incorrectly, second player gets a chance
+
+
+Scoring:
+
+Scores update after correct answers
+Scores display on LCD in descending order
+Current game state is shown on the bottom line of LCD
+Hardware Connections
+
+Player Buzzers: P2.0 (Player 1) and P2.1 (Player 2)
+Player LEDs: P2.2 (Player 1) and P2.3 (Player 2)
+Sound Buzzer: P2.4
+LCD: Using the same connections from your sample code
+Keypad: Same row/column configuration as your sample code
+
+How The System Works
+
+When a question is asked, the system waits for a player to press their buzzer
+First player to press gets the LED lit and "Player X First!" displayed
+Moderator judges the answer:
+
+Press 'A' if correct (updates score)
+Press 'B' if wrong (switches to second player if available)
+Press 'C' to reset the system
+
+
+Scores are continuously displayed in descending order
+If both players answer incorrectly, the system resets
+
+Implementation Details
+The code includes:
+
+Debouncing for reliable button detection
+Clear state management
+LED indicators for visual feedback
+Sound buzzer for audio feedback
+LCD updates for score tracking and status display
+
